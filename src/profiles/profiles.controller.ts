@@ -1,11 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 
+
 @Controller('profiles')
 export class ProfilesController {
-  constructor(private readonly profilesService: ProfilesService) {}
+  constructor(private readonly profilesService: ProfilesService) { }
 
   @Post()
   create(@Body() createProfileDto: CreateProfileDto) {
@@ -13,8 +14,8 @@ export class ProfilesController {
   }
 
   @Get()
-  findAll() {
-    return this.profilesService.findAll();
+  findAll(@Query('location') location: string) {
+    return this.profilesService.findAll(location);
   }
 
   @Get(':id')
